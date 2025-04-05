@@ -500,34 +500,30 @@
             <div class="col-lg-6">
               <h2>Formulaire de contact</h2>
               <p class="bigger op-6">Vous avez une question ? N'hésitez pas à nous contacter en passant par le formulaire ci-dessous.</p>
-              <form class="rd-mailform me-xxl-5" data-form-output="form-output-global" data-form-type="contact" method="post">
-                <div class="row row-30">
-                  <div class="col-xs-6">
-                    <div class="form-group">
-                      <input class="form-control" type="text" name="name" placeholder="Votre nom *" data-constraints="@Required" autocomplete="on">
-                    </div>
-                  </div>
-                  <div class="col-xs-6">
-                    <div class="form-group">
-                      <input class="form-control" type="email" name="email" placeholder="Votre adresse email *" data-constraints="@Email @Required" autocomplete="on">
-                    </div>
-                  </div>
-                  <div class="col-12">
-                    <div class="form-group">
-                      <textarea class="form-control" name="question" placeholder="Votre message" rows="5" data-constraints="@Required"></textarea>
-                    </div>
-                  </div>
-                </div>
-                <div class="offset-sm group-40 d-flex flex-wrap flex-xs-nowrap align-items-center">
-                  <button class="btn" type="submit">Envoyer</button>
-                        <!-- Checkbox-->
-                        <div class="custom-control custom-checkbox">
-                          <input class="custom-control-input" type="checkbox" id="check1">
-                          <label class="custom-control-label" for="check1">S'inscrire à la newsletter
-                          </label>
-                        </div>
-                </div>
-              </form>
+              <form class="rd-mailform" id="contact-form-2">
+              <div class="form-group">
+                <input class="form-control" type="text" name="name" placeholder="Votre nom *" required autocomplete="on">
+              </div>
+              <div class="form-group">
+                <input class="form-control" type="email" name="email" placeholder="Votre email *" required autocomplete="on">
+              </div>
+              <div class="form-group">
+                <textarea class="form-control" name="message" placeholder="Votre message *" required></textarea>
+              </div>
+              <div class="form-group">
+                <label>
+                  <input type="checkbox" name="consent_newsletter">
+                  Je souhaite m'inscrire à la newsletter
+                </label>
+              </div>
+              <div class="offset-xs">
+                <button class="btn btn-block" type="submit">Envoyer</button>
+              </div>
+            </form>
+            
+            <!-- Success message (initially hidden) -->
+            <div id="contact-success-message" style="display: none; color: green; margin-top: 1rem; font-weight: bold;"></div>
+
             </div>
             <div class="col-lg-6 position-relative">
               <div class="box px-xl-3 px-xxl-4">
