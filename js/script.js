@@ -1,57 +1,84 @@
-"use strict";
-
-
-
 document.addEventListener("DOMContentLoaded", function () {
-	document.getElementById("contact-form").addEventListener("submit", function(event) {
-	  event.preventDefault();
-   
-	  emailjs.sendForm('service_y7rs8zp', 'template_mfxpw7k', this, 'Skuu7xmx46NBQxo2p')
-		.then(response => {
-		  console.log('Email sent!', response);
-   
-		  // 1. Clear the form
-		  this.reset();
-   
-		  // 2. Show success message
-		  const msg = document.getElementById("success-message");
-		  msg.style.display = "block";
-   
-		  // 3. Dynamically load confetti and run animation
-		  loadConfetti().then(() => {
-			confetti({
-			  particleCount: 100,
-			  spread: 70,
-			  origin: { y: 0.6 },
-			  colors: ['#ffb3ba', '#ffdfba', '#ffffba', '#baffc9', '#bae1ff']
-			});
-		  });
-   
-		  // 4. Optional: Hide the success message after 5s
-		  setTimeout(() => {
-			msg.style.display = "none";
-		  }, 5000);
-		})
-		.catch(error => {
-		  console.error('Error:', error);
-		});
-	});
+
+  // FORM 1: Newsletter Subscription
+  document.getElementById("contact-form").addEventListener("submit", function (event) {
+    event.preventDefault();
+
+    emailjs.sendForm("service_y7rs8zp", "template_mfxpw7k", this, "Skuu7xmx46NBQxo2p")
+      .then(response => {
+        console.log("Email sent!", response);
+        this.reset();
+
+        // Show success message
+        const msg = document.getElementById("success-message");
+        msg.style.display = "block";
+
+        // Confetti animation
+        loadConfetti().then(() => {
+          confetti({
+            particleCount: 100,
+            spread: 70,
+            origin: { y: 0.6 },
+            colors: ["#ffb3ba", "#ffdfba", "#ffffba", "#baffc9", "#bae1ff"]
+          });
+        });
+
+        setTimeout(() => {
+          msg.style.display = "none";
+        }, 5000);
+      })
+      .catch(error => console.error("Error:", error));
   });
-   
-  // Function to dynamically load confetti script
-  function loadConfetti() {
-	return new Promise((resolve, reject) => {
-	  if (window.confetti) {
-		resolve(); // Confetti already loaded
-	  } else {
-		const script = document.createElement("script");
-		script.src = "https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js";
-		script.onload = resolve;
-		script.onerror = reject;
-		document.body.appendChild(script);
-	  }
-	});
-  }
+
+  // FORM 2: Contact Form
+  document.getElementById("contact-form-2").addEventListener("submit", function (event) {
+    event.preventDefault();
+
+    const formData = new FormData(this);
+    const consentNewsletter = formData.get("consent_newsletter") !== null; // Check if the checkbox is checked
+
+    let promises = [];
+
+    if (consentNewsletter) {
+      // If user consents to newsletter, send both templates
+      promises.push(emailjs.sendForm("service_y7rs8zp", "template_mfxpw7k", this, "Skuu7xmx46NBQxo2p"));
+    }
+
+    // Always send contact form message
+    promises.push(emailjs.sendForm("service_y7rs8zp", "template_amjk6kl", this, "Skuu7xmx46NBQxo2p"));
+
+    Promise.all(promises)
+      .then(() => {
+        this.reset();
+
+        const msg = document.getElementById("contact-success-message");
+        msg.innerText = "✅ Message envoyé avec succès !";
+        msg.style.display = "block";
+
+        setTimeout(() => {
+          msg.style.display = "none";
+        }, 5000);
+      })
+      .catch(error => console.error("Error:", error));
+  });
+
+});
+
+// Function to dynamically load confetti script
+function loadConfetti() {
+  return new Promise((resolve, reject) => {
+    if (window.confetti) {
+      resolve();
+    } else {
+      const script = document.createElement("script");
+      script.src = "https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js";
+      script.onload = resolve;
+      script.onerror = reject;
+      document.body.appendChild(script);
+    }
+  });
+}
+
 
 (function () {
 	// Global variables
