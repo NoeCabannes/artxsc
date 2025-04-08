@@ -1,68 +1,93 @@
 document.addEventListener("DOMContentLoaded", function () {
 
-  // FORM 1: Newsletter Subscription
-  document.getElementById("contact-form").addEventListener("submit", function (event) {
-    event.preventDefault();
+  // Get potential form elements
+  const form1 = document.getElementById("contact-form");
+  const form2 = document.getElementById("contact-form-2");
 
-    emailjs.sendForm("service_y7rs8zp", "template_mfxpw7k", this, "Skuu7xmx46NBQxo2p")
-      .then(response => {
-        console.log("Email sent!", response);
-        this.reset();
+  // --- FORM 1 LOGIC ---
+  // Only add listener if the element exists on this page
+  if (form1) {
+    form1.addEventListener("submit", function (event) {
+      event.preventDefault();
+      console.log("Submitting Form 1 (contact-form)"); // Add log for debugging
 
-        // Show success message
-        const msg = document.getElementById("success-message");
-        msg.style.display = "block";
+      emailjs.sendForm("service_y7rs8zp", "template_mfxpw7k", this, "Skuu7xmx46NBQxo2p")
+        .then(response => {
+          console.log("Email sent via Form 1!", response);
+          this.reset();
 
-        // Confetti animation
-        loadConfetti().then(() => {
-          confetti({
-            particleCount: 100,
-            spread: 70,
-            origin: { y: 0.6 },
-            colors: ["#ffb3ba", "#ffdfba", "#ffffba", "#baffc9", "#bae1ff"]
-          });
-        });
+          // Show success message (Ensure #success-message exists on pages with this form)
+          const msg = document.getElementById("success-message");
+          // Add a check for the message element too
+          if (msg) {
+            msg.style.display = "block";
+            // Confetti animation (ensure loadConfetti is defined)
+            if (typeof loadConfetti === 'function') {
+                loadConfetti().then(() => {
+                    confetti({ /* ... confetti options ... */ });
+                });
+            }
+            setTimeout(() => {
+                 msg.style.display = "none";
+            }, 5000);
+          } else {
+              console.warn("Element with ID 'success-message' not found for form 1.");
+          }
+        })
+        .catch(error => console.error("Form 1 Error:", error));
+    });
+  } else {
+    // Optional: Log if the form wasn't found on this page (useful for debugging)
+    // console.log("Element with ID 'contact-form' not found on this page.");
+  }
 
-        setTimeout(() => {
-          msg.style.display = "none";
-        }, 5000);
-      })
-      .catch(error => console.error("Error:", error));
-  });
 
-  // FORM 2: Contact Form
-  document.getElementById("contact-form-2").addEventListener("submit", function (event) {
-    event.preventDefault();
+  // --- FORM 2 LOGIC ---
+  // Only add listener if the element exists on this page
+  if (form2) {
+    form2.addEventListener("submit", function (event) {
+      event.preventDefault();
+      console.log("Submitting Form 2 (contact-form-2)"); // Add log for debugging
 
-    const formData = new FormData(this);
-    const consentNewsletter = formData.get("consent_newsletter") !== null; // Check if the checkbox is checked
+      const formData = new FormData(this);
+      const consentNewsletter = formData.get("consent_newsletter") !== null;
 
-    let promises = [];
+      let promises = [];
 
-    if (consentNewsletter) {
-      // If user consents to newsletter, send both templates
-      promises.push(emailjs.sendForm("service_y7rs8zp", "template_mfxpw7k", this, "Skuu7xmx46NBQxo2p"));
-    }
+      if (consentNewsletter) {
+        // Ensure template_mfxpw7k is correct for newsletter signup via form 2
+        promises.push(emailjs.sendForm("service_y7rs8zp", "template_mfxpw7k", this, "Skuu7xmx46NBQxo2p"));
+      }
 
-    // Always send contact form message
-    promises.push(emailjs.sendForm("service_y7rs8zp", "template_amjk6kl", this, "Skuu7xmx46NBQxo2p"));
+      // Always send contact form message (template_amjk6kl)
+      promises.push(emailjs.sendForm("service_y7rs8zp", "template_amjk6kl", this, "Skuu7xmx46NBQxo2p"));
 
-    Promise.all(promises)
-      .then(() => {
-        this.reset();
+      Promise.all(promises)
+        .then(() => {
+          console.log("Email(s) sent via Form 2!");
+          this.reset();
 
-        const msg = document.getElementById("contact-success-message");
-        msg.innerText = "✅ Message envoyé avec succès !";
-        msg.style.display = "block";
+          // Show success message (Ensure #contact-success-message exists on pages with this form)
+          const msg = document.getElementById("contact-success-message");
+           // Add a check for the message element too
+          if (msg) {
+            msg.innerText = "✅ Message envoyé avec succès !";
+            msg.style.display = "block";
+            setTimeout(() => {
+                msg.style.display = "none";
+            }, 5000);
+          } else {
+              console.warn("Element with ID 'contact-success-message' not found for form 2.");
+          }
+        })
+        .catch(error => console.error("Form 2 Error:", error));
+    });
+  } else {
+     // Optional: Log if the form wasn't found on this page
+     // console.log("Element with ID 'contact-form-2' not found on this page.");
+  }
 
-        setTimeout(() => {
-          msg.style.display = "none";
-        }, 5000);
-      })
-      .catch(error => console.error("Error:", error));
-  });
-
-});
+}); // End of DOMContentLoaded
 
 // Function to dynamically load confetti script
 function loadConfetti() {
