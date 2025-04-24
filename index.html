@@ -5,7 +5,7 @@
     <title>Art x Science International - Site officiel</title>
     <meta property="og:title" content="Art x Science International" /> <link rel="alternate" hreflang="fr" href="https://artxsc.org/" />
     <link rel="alternate" hreflang="en" href="https://artxsc.org/en/" />
-    <link rel="alternate" hreflang="x-default" href="https://artxsc.org/en" /> <script>
+    <link rel="alternate" hreflang="x-default" href="https://artxsc.org/en" />
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://artxsc.org/">
     <meta property="og:locale" content="fr_FR">
@@ -24,6 +24,64 @@
     <link rel="stylesheet" href="css/bootstrap.css">
     <link rel="stylesheet" href="css/fonts.css">
     <link rel="stylesheet" href="css/style-2.css">
+    <script>
+        (function() {
+            // --- Configuration ---
+            const englishVersionUrl = '/en/'; // Change this to the base URL or path of your English site/section
+            const frenchLangCode = 'fr';
+            const storageKey = 'user_preferred_language'; // Key for localStorage
+ 
+            // --- Get User Preference & Browser Language ---
+            try {
+                const savedPreference = localStorage.getItem(storageKey);
+                const browserLang = (navigator.language || navigator.userLanguage || '').toLowerCase(); // Get browser language (e.g., 'fr-fr', 'en-us')
+                const browserPrimaryLang = browserLang.split('-')[0]; // Get primary language code (e.g., 'fr', 'en')
+ 
+                // --- Redirection Logic ---
+ 
+                // 1. If user explicitly chose French before, DO NOTHING.
+                if (savedPreference === frenchLangCode) {
+                    console.log('User previously chose French. No redirect.');
+                    return;
+                }
+ 
+                // 2. If user explicitly chose English before, redirect if they are not already on the English site.
+                //    (This part might be better handled by having this script only on the French site,
+                //     but included here for completeness if you adapt it for both)
+                // if (savedPreference === 'en' && !window.location.pathname.startsWith(englishVersionUrl)) {
+                //    console.log('User previously chose English. Redirecting.');
+                //    window.location.replace(englishVersionUrl); // Use replace to avoid adding French page to history
+                //    return;
+                // }
+ 
+                // 3. If no preference saved, check browser language.
+                //    Redirect ONLY if browser language is NOT French AND we are not already on the English site.
+                if (!savedPreference && browserPrimaryLang && browserPrimaryLang !== frenchLangCode) {
+                    // Prevent redirect loops if somehow this script runs on the English page
+                    if (!window.location.pathname.startsWith(englishVersionUrl)) {
+                        console.log(`Browser language (${browserLang}) is not French. Redirecting to English version.`);
+ 
+                        // --- Choose Redirection Target ---
+                        // Option A: Redirect to the English homepage (Simpler)
+                         const targetUrl = englishVersionUrl;
+ 
+                        // Option B: Try to redirect to the equivalent English page (More Complex)
+                        // Assumes English structure is /en/... and French is /...
+                        // const targetUrl = englishVersionUrl + window.location.pathname.substring(1) + window.location.search + window.location.hash;
+                        // Or if French is /fr/... and English is /en/...
+                        // const targetUrl = window.location.href.replace('/fr/', '/en/');
+ 
+                        // Perform the redirect - use replace() so the back button doesn't go back to the French page briefly
+                        window.location.replace(targetUrl);
+                    }
+                }
+ 
+            } catch (e) {
+                // Handle potential errors (e.g., localStorage not available in private mode)
+                console.error("Language redirection script error:", e);
+            }
+        })();
+    </script>
     <script type="text/javascript"
     src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js">
     </script>
