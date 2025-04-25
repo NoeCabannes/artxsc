@@ -58,7 +58,7 @@
     let frameRequest; // Stores the requestAnimationFrame ID
 
     // Throttle interval: Minimum time (ms) between sparkle bursts
-    const sparkleIntervalThreshold = 16;
+    const sparkleIntervalThreshold = 25;
     // Distance threshold: Minimum distance (pixels) mouse must move
     const distanceThreshold = 4;
 
