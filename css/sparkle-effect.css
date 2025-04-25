@@ -1,0 +1,66 @@
+.sparkle {
+    position: absolute;
+    pointer-events: none;
+    /* Base size for all sparkles (applied to gray ones) */
+    width: 16px; 
+    height: 16px;
+    transform: translate(-50%, -50%);
+    animation: sparkle-animation 1.5s ease-out forwards;
+    z-index: 999;
+}
+
+.sparkle::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: currentColor; 
+    opacity: 0.9; 
+    
+    mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 0L13.9 8.6 22 12 13.9 15.4 12 24 10.1 15.4 2 12 10.1 8.6z' fill='black'/%3E%3C/svg%3E");
+    mask-size: contain;
+    mask-repeat: no-repeat;
+    mask-position: center;
+}
+
+.sparkle.gray {
+    color: rgba(0, 0, 0, 0.20);
+    /* Inherits width/height from .sparkle (16px) */
+}
+
+.sparkle.blue {
+    color: rgb(135, 206, 255);
+    filter: 
+        drop-shadow(0 0 5px rgba(135, 206, 255, 0.8)) 
+        drop-shadow(0 0 10px rgba(135, 206, 255, 0.5))
+        brightness(1.4);
+        
+    /* --- Make Blue Sparkles Bigger --- */
+    width: 22px; /* Overrides the base 16px */
+    height: 22px;/* Overrides the base 16px */
+    /* --------------------------------- */
+}
+
+/* --- Keyframes animation remains the same --- */
+@keyframes sparkle-animation {
+    0% {
+        transform: translate(-50%, -50%) scale(0) rotate(0deg);
+        opacity: 0.4;
+    }
+    /* Scale(1) will now be relative to the element's specific size */
+    15% { 
+        transform: translate(-50%, -50%) scale(1) rotate(90deg); 
+        opacity: 0.9;
+    }
+     /* Scale(0.2) will also be relative */
+    100% {
+        transform: 
+            translate(
+                calc(-50% + var(--moveX)), 
+                calc(-50% + var(--moveY))
+            )
+            scale(0.2) 
+            rotate(var(--rotation));
+        opacity: 0;
+    }
+}
