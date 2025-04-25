@@ -25,10 +25,21 @@
     <link rel="stylesheet" href="css/fonts.css">
     <link rel="stylesheet" href="css/style-2.css">
     <link rel="stylesheet" href="css/sparkle-effect.css">
+    <script type="application/ld+json">
+    {
+      "@context": "http://schema.org",
+      "@type": "NGO",
+      "name": "Art × Science International",
+      "alternateName": "Art x Science International",
+      "sameAs": "https://www.wikidata.org/wiki/Q133812572",
+      "foundingDate": "2025-04-05",
+      "logo": "https://artxsc.org/images/logo.png"
+    }
+    </script>
     <script>
         (function() {
             // --- Configuration ---
-            const englishVersionUrl = '/en/'; // Change this to the base URL or path of your English site/section
+            const englishVersionUrl = '/en/';
             const frenchLangCode = 'fr';
             const storageKey = 'user_preferred_language'; // Key for localStorage
  
@@ -92,20 +103,7 @@
         publicKey: "Skuu7xmx46NBQxo2p",
       });
     })();
-    </script>
-    <!-- Balisage JSON-LD généré par l'outil d'aide au balisage de données structurées de Google -->
-<script type="application/ld+json">
-{
-  "@context": "http://schema.org",
-  "@type": "NGO",
-  "name": "Art × Science International",
-  "alternateName": "Art x Science International",
-  "sameAs": "https://www.wikidata.org/wiki/Q133812572",
-  "foundingDate": "2025-04-05",
-  "logo": "https://artxsc.org/images/logo.png"
-}
-</script>
-  
+    </script>  
   </head>
   <body>
     <!-- Preloader-->
@@ -118,6 +116,7 @@
       </div>
     </div>
     <div class="page">
+      <div id="sparkle-container"></div>
       <!--RD Navbar-->
       <header class="section rd-navbar-wrap">
         <nav class="rd-navbar context">
