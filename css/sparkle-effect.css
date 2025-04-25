@@ -1,3 +1,14 @@
+#sparkle-container {
+    position: fixed; /* <-- This is the key! Fixes it to the viewport */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none; /* Allows clicks/hovers to pass through */
+    z-index: 998; /* Make sure it's below sparkles but above most content */
+    overflow: hidden; /* Prevents container itself from causing scroll issues */
+}
+
 .sparkle {
     position: absolute;
     pointer-events: none;
