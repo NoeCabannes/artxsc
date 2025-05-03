@@ -5,46 +5,55 @@ document.addEventListener("DOMContentLoaded", function () {
     console.error("EmailJS init failed:", e);
   }
 
+	function handleNewsletterFormSubmission(formElement) {
+	  console.log("Submitting Newsletter Form (shared logic)");
+	
+	  emailjs.sendForm("service_y7rs8zp", "template_mfxpw7k", formElement, "Skuu7xmx46NBQxo2p")
+	    .then(response => {
+	      console.log("Email sent via Newsletter Form!", response);
+	      formElement.reset();
+	
+	      const msg = document.getElementById("success-message");
+	      if (msg) {
+	        msg.style.display = "block";
+	
+	        if (typeof loadConfetti === 'function') {
+	          loadConfetti().then(() => {
+	            confetti({ /* ... confetti options ... */ });
+	          });
+	        }
+	
+	        setTimeout(() => {
+	          msg.style.display = "none";
+	        }, 5000);
+	      } else {
+	        console.warn("Element with ID 'success-message' not found.");
+	      }
+	    })
+	    .catch(error => console.error("Newsletter Form Error:", error));
+	}
+
+
   // Get potential form elements
   const form1 = document.getElementById("contact-form");
   const form2 = document.getElementById("contact-form-2");
 
-  // --- FORM 1 LOGIC ---
-  // Only add listener if the element exists on this page
   if (form1) {
-    form1.addEventListener("submit", function (event) {
-      event.preventDefault();
-      console.log("Submitting Form 1 (contact-form)"); // Add log for debugging
+	  form1.addEventListener("submit", function (event) {
+	    event.preventDefault();
+	    handleNewsletterFormSubmission(this);
+	  });
+	}
+	const form1bisList = document.querySelectorAll(".contact-form-1-bis");
+	form1bisList.forEach(form => {
+	  form.addEventListener("submit", function (event) {
+	    event.preventDefault();
+	    handleNewsletterFormSubmission(this);
+	  });
+	});
 
-      emailjs.sendForm("service_y7rs8zp", "template_mfxpw7k", this, "Skuu7xmx46NBQxo2p")
-        .then(response => {
-          console.log("Email sent via Form 1!", response);
-          this.reset();
 
-          // Show success message (Ensure #success-message exists on pages with this form)
-          const msg = document.getElementById("success-message");
-          // Add a check for the message element too
-          if (msg) {
-            msg.style.display = "block";
-            // Confetti animation (ensure loadConfetti is defined)
-            if (typeof loadConfetti === 'function') {
-                loadConfetti().then(() => {
-                    confetti({ /* ... confetti options ... */ });
-                });
-            }
-            setTimeout(() => {
-                 msg.style.display = "none";
-            }, 5000);
-          } else {
-              console.warn("Element with ID 'success-message' not found for form 1.");
-          }
-        })
-        .catch(error => console.error("Form 1 Error:", error));
-    });
-  } else {
-    // Optional: Log if the form wasn't found on this page (useful for debugging)
-    // console.log("Element with ID 'contact-form' not found on this page.");
-  }
+
 
 
   // --- FORM 2 LOGIC ---
