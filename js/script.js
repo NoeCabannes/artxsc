@@ -1,9 +1,9 @@
 document.addEventListener("DOMContentLoaded", function () {
-	try {
-	  emailjs.init("Skuu7xmx46NBQxo2p");
-	} catch (e) {
-	  console.error("EmailJS init failed:", e);
-	}
+  try {
+    emailjs.init("Skuu7xmx46NBQxo2p");
+  } catch (e) {
+    console.error("EmailJS init failed:", e);
+  }
 
   // Get potential form elements
   const form1 = document.getElementById("contact-form");
