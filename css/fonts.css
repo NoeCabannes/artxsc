@@ -386,6 +386,9 @@
 .mdi-window-close::before {
 	content:"\F69A";
 }
+.mdi-cursor-default::before {
+	content:"\F2A9";
+}
 
 
 .mdi-18px {
