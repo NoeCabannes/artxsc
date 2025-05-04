@@ -44,7 +44,7 @@ document.addEventListener("DOMContentLoaded", function () {
 	    handleNewsletterFormSubmission(this);
 	  });
 	}
-	const form1bisList = document.querySelectorAll("rd-mailform form-inline group-20");
+	const form1bisList = document.querySelectorAll(".rd-mailform.form-inline.group-20");
 	form1bisList.forEach(form => {
 	  form.addEventListener("submit", function (event) {
 	    event.preventDefault();
