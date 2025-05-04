@@ -244,7 +244,7 @@ function loadConfetti() {
 			pageTransition({
 				target:            document.querySelector('.page'),
 				delay:             0,
-				duration:          500,
+				duration:          0,
 				classIn:           'fadeIn',
 				classOut:          'fadeOut',
 				classActive:       'animated',
@@ -257,7 +257,7 @@ function loadConfetti() {
 				onTransitionStart: function (options) {
 					setTimeout(function () {
 						plugins.preloader.removeClass('loaded');
-					}, options.duration * .75);
+					}, options.duration * .1);
 				},
 				onReady: function () {
 					// plugins.preloader.addClass('loaded');
