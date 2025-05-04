@@ -1590,72 +1590,73 @@ function loadConfetti() {
 				}
 			});
 
-			// **** START: Swiper Autoplay Pause Modification (with Debugging) ****
-            console.log('[Debug] Attempting to find #home swiper and email input...'); // Log 1
+			// **** START: Swiper Autoplay Pause Modification (Handling Multiple Inputs, Trying 'keydown') ****
+            console.log('[Debug] Attempting to find #home swiper and email inputs...'); // Log 1 (plural)
 
             const homeSwiperContainer = document.querySelector('#home .swiper-container');
             if (homeSwiperContainer) {
                 console.log('[Debug] Found #home .swiper-container:', homeSwiperContainer); // Log 2
 
-                // Check if Swiper instance is ready (Swiper attaches it directly to the element)
                  if (homeSwiperContainer.swiper) {
                     console.log('[Debug] Swiper instance found on container:', homeSwiperContainer.swiper); // Log 3
-                    const homeSwiper = homeSwiperContainer.swiper; // Access the Swiper instance
+                    const homeSwiper = homeSwiperContainer.swiper;
 
-                    const emailInput = homeSwiperContainer.querySelector('.rd-mailform input[type="email"]');
-                    let autoplayTimeoutId = null; // Variable to store the timeout ID
+                    // ***** Use querySelectorAll to find ALL email inputs *****
+                    const emailInputs = homeSwiperContainer.querySelectorAll('.rd-mailform input[type="email"]');
+                    let autoplayTimeoutId = null;
 
-                    if (emailInput) {
-                        console.log('[Debug] Found email input:', emailInput); // Log 4
+                    if (emailInputs && emailInputs.length > 0) { // Check if any inputs were found
+                        console.log(`[Debug] Found ${emailInputs.length} email input(s).`); // Log 4 (updated)
 
-                        emailInput.addEventListener('input', function(event) {
-                            console.log('[Debug] Input event detected on email field. Value:', event.target.value); // Log 5
+                        // ***** Loop through each found input *****
+                        emailInputs.forEach((emailInput, index) => {
+                            console.log(`[Debug] Processing email input [${index + 1}/${emailInputs.length}]:`, emailInput); // Log 4b (new)
 
-                            // Stop autoplay if it's running
-                            if (homeSwiper.autoplay && homeSwiper.autoplay.running) {
-                                console.log('[Debug] Autoplay is running. Attempting to stop...'); // Log 6
-                                homeSwiper.autoplay.stop();
-                                console.log('[Debug] Swiper autoplay stopped.'); // Log 7
-                            } else if (homeSwiper.autoplay) {
-                                console.log('[Debug] Autoplay exists but is not running.'); // Log 6b
-                            } else {
-                                console.log('[Debug] Swiper instance does not have autoplay configured or available.'); // Log 6c
-                            }
+                            emailInput.addEventListener('keydown', function(event) {
+                                console.log(`[Debug] Keydown event detected on email field [${index + 1}/${emailInputs.length}]. Key:`, event.key); // Log 5 (updated)
 
-                            // Clear any existing timeout to reset the pause duration
-                            if (autoplayTimeoutId) {
-                                console.log('[Debug] Clearing existing timeout ID:', autoplayTimeoutId); // Log 8
-                                clearTimeout(autoplayTimeoutId);
-                            }
-
-                            // Set a timeout to restart autoplay after 10 seconds
-                            console.log('[Debug] Setting timeout to restart autoplay in 10000ms...'); // Log 9
-                            autoplayTimeoutId = setTimeout(() => {
-                                console.log('[Debug] Timeout finished. Attempting to restart autoplay...'); // Log 10
-                                // Only restart if the swiper instance still exists and has autoplay
-                                if(homeSwiper && homeSwiper.autoplay) {
-                                    homeSwiper.autoplay.start();
-                                    console.log('[Debug] Swiper autoplay restarted.'); // Log 11
+                                if (homeSwiper.autoplay && homeSwiper.autoplay.running) {
+                                    console.log('[Debug] Autoplay is running. Attempting to stop...'); // Log 6
+                                    homeSwiper.autoplay.stop();
+                                    console.log('[Debug] Swiper autoplay stopped.'); // Log 7
+                                } else if (homeSwiper.autoplay) {
+                                    console.log('[Debug] Autoplay exists but is not running.'); // Log 6b
                                 } else {
-                                     console.log('[Debug] Cannot restart autoplay - Swiper or autoplay module not available.'); // Log 11b
+                                    console.log('[Debug] Swiper instance does not have autoplay configured or available.'); // Log 6c
                                 }
-                                autoplayTimeoutId = null; // Reset the timeout ID
-                            }, 10000); // 10000 milliseconds = 10 seconds (kept your increased value)
-                            console.log('[Debug] New timeout ID set:', autoplayTimeoutId); // Log 12
 
-                        });
-                         console.log('[Debug] Event listener added to email input.'); // Log 13
+                                if (autoplayTimeoutId) {
+                                    console.log('[Debug] Clearing existing timeout ID:', autoplayTimeoutId); // Log 8
+                                    clearTimeout(autoplayTimeoutId);
+                                }
+
+                                console.log('[Debug] Setting timeout to restart autoplay in 10000ms...'); // Log 9
+                                autoplayTimeoutId = setTimeout(() => {
+                                    console.log('[Debug] Timeout finished. Attempting to restart autoplay...'); // Log 10
+                                    if(homeSwiper && homeSwiper.autoplay) {
+                                        homeSwiper.autoplay.start();
+                                        console.log('[Debug] Swiper autoplay restarted.'); // Log 11
+                                    } else {
+                                         console.log('[Debug] Cannot restart autoplay - Swiper or autoplay module not available.'); // Log 11b
+                                    }
+                                    autoplayTimeoutId = null;
+                                }, 10000);
+                                console.log('[Debug] New timeout ID set:', autoplayTimeoutId); // Log 12
+
+                            });
+                             console.log(`[Debug] Event listener (keydown) added to email input [${index + 1}/${emailInputs.length}].`); // Log 13 (updated)
+                        }); // End of forEach loop
 
                     } else {
-                        console.warn('[Debug] Email input field NOT found within the #home swiper container.'); // Log 14
+                        console.warn('[Debug] NO email input fields found within the #home swiper container using querySelectorAll.'); // Log 14 (updated)
                     }
                 } else {
-                     console.warn('[Debug] Swiper instance (.swiper property) NOT found on the container element. Swiper might not be initialized yet or failed.'); // Log 15
+                     console.warn('[Debug] Swiper instance (.swiper property) NOT found on the container element.'); // Log 15
                 }
             } else {
                  console.warn('[Debug] #home .swiper-container element NOT found.'); // Log 16
             }
-            // **** END: Swiper Autoplay Pause Modification (with Debugging) ****
+            // **** END: Swiper Autoplay Pause Modification ****
 			
 		}
 
