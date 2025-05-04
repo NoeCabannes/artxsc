@@ -1618,7 +1618,7 @@ function loadConfetti() {
                                 console.log('Swiper autoplay restarted.'); // Optional: for debugging
                             }
                             autoplayTimeoutId = null; // Reset the timeout ID
-                        }, 5000); // 5000 milliseconds = 5 seconds
+                        }, 10000); // 10000 milliseconds = 5 seconds
                     });
                 } else {
                     console.warn('Email input field not found within the #home swiper container.');
