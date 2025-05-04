@@ -1,4 +1,9 @@
 document.addEventListener("DOMContentLoaded", function () {
+	const preloaderElement = document.querySelector('.preloader'); // Make sure '.preloader' is the correct selector
+  if (preloaderElement) {
+      preloaderElement.classList.add('loaded');
+      console.log('Preloader hidden on DOMContentLoaded.');
+  }
   try {
     emailjs.init("Skuu7xmx46NBQxo2p");
   } catch (e) {
@@ -254,124 +259,19 @@ function loadConfetti() {
 						plugins.preloader.removeClass('loaded');
 					}, options.duration * .75);
 				},
-				onReady:           function () {
-					plugins.preloader.addClass('loaded');
+				onReady: function () {
+					// plugins.preloader.addClass('loaded');
 					windowReady = true;
+					console.log('pageTransition onReady fired (preloader already handled).');
 				}
 			});
 		}
 
-		// Counter
-		if (plugins.counter) {
-			let observer = new IntersectionObserver( function ( entries, observer ) {
-				entries.forEach( function ( entry ) {
-					let node = entry.target;
+		
 
-					if ( entry.isIntersecting ) {
-						node.counter.run();
-						observer.unobserve( node );
-					}
-				});
-			}, {
-				rootMargin: '0px',
-				threshold: 1.0
-			});
+		
 
-			plugins.counter.forEach( function ( node ) {
-				let counter = new bCounter( Object.assign( {
-					node: node,
-					duration: 1000,
-					autorun: false
-				}, parseJSON( node.getAttribute( 'data-counter' ) ) ) );
-
-				if ( window.xMode ) {
-					counter.run();
-				} else {
-					observer.observe( node );
-				}
-			})
-		}
-
-		// Progress Bar
-		if (plugins.progressLinear) {
-			for (let i = 0; i < plugins.progressLinear.length; i++) {
-				let
-						container = plugins.progressLinear[i],
-						bar = container.querySelector('.progress-linear-bar'),
-						duration = container.getAttribute('data-duration') || 1000,
-						counter = aCounter({
-							node:     container.querySelector('.progress-linear-counter'),
-							duration: duration,
-							onStart:  function () {
-								this.custom.bar.style.width = this.params.to + '%';
-							}
-						});
-
-				bar.style.transitionDuration = duration / 1000 + 's';
-				counter.custom = {
-					container: container,
-					bar:       bar,
-					observer: new IntersectionObserver( function ( entries, observer ) {
-						entries.forEach( function ( entry ) {
-							if ( entry.isIntersecting ) {
-								counter.custom.container.classList.add('animated');
-								counter.run();
-								observer.unobserve( entry.target )
-							}
-						});
-					}, {
-						rootMargin: '0px',
-						threshold: 1.0
-					})
-				};
-
-				if (isNoviBuilder) {
-					counter.run();
-				} else {
-					counter.custom.observer.observe( container )
-				}
-			}
-		}
-
-		// Progress Circle
-		if (plugins.progressCircle) {
-			for (let i = 0; i < plugins.progressCircle.length; i++) {
-				let
-						container = plugins.progressCircle[i],
-						counter = aCounter({
-							node:     container.querySelector('.progress-circle-counter'),
-							duration: 1000,
-							onUpdate: function (value) {
-								this.custom.bar.render(value * 3.6);
-							}
-						});
-
-				counter.params.onComplete = counter.params.onUpdate;
-
-				counter.custom = {
-					container: container,
-					bar:       aProgressCircle({node: container.querySelector('.progress-circle-bar')}),
-					observer: new IntersectionObserver( function ( entries, observer ) {
-						entries.forEach( function ( entry ) {
-							if ( entry.isIntersecting ) {
-								counter.custom.container.classList.add('animated');
-								counter.run();
-								observer.unobserve( entry.target )
-							}
-						});
-					}, {
-						rootMargin: '0px',
-						threshold: 1.0
-					})
-				};
-
-				if (isNoviBuilder) {
-					counter.run();
-				} else {
-					counter.custom.observer.observe( container )
-				}
-			}
-		}
+		
 
 		// Isotope
 		if (plugins.isotope.length) {
