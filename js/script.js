@@ -1589,6 +1589,46 @@ function loadConfetti() {
 					node.dispatchEvent(new CustomEvent('swiper:ready'));
 				}
 			});
+
+			// **** START: Swiper Autoplay Pause Modification ****
+            const homeSwiperContainer = document.querySelector('#home .swiper-container');
+            if (homeSwiperContainer && homeSwiperContainer.swiper) {
+                const homeSwiper = homeSwiperContainer.swiper; // Access the Swiper instance
+                const emailInput = homeSwiperContainer.querySelector('.rd-mailform input[type="email"]');
+                let autoplayTimeoutId = null; // Variable to store the timeout ID
+
+                if (emailInput) {
+                    emailInput.addEventListener('input', function() {
+                        // Stop autoplay if it's running
+                        if (homeSwiper.autoplay.running) {
+                            homeSwiper.autoplay.stop();
+                            console.log('Swiper autoplay stopped due to input.'); // Optional: for debugging
+                        }
+
+                        // Clear any existing timeout to reset the pause duration
+                        if (autoplayTimeoutId) {
+                            clearTimeout(autoplayTimeoutId);
+                        }
+
+                        // Set a timeout to restart autoplay after 5 seconds
+                        autoplayTimeoutId = setTimeout(() => {
+                            // Only restart if the swiper instance still exists and has autoplay
+                            if(homeSwiper && homeSwiper.autoplay) {
+                                homeSwiper.autoplay.start();
+                                console.log('Swiper autoplay restarted.'); // Optional: for debugging
+                            }
+                            autoplayTimeoutId = null; // Reset the timeout ID
+                        }, 5000); // 5000 milliseconds = 5 seconds
+                    });
+                } else {
+                    console.warn('Email input field not found within the #home swiper container.');
+                }
+            } else {
+                // This might log initially until the swiper is fully ready, which is okay.
+                // console.warn('Swiper instance for #home section not found or not initialized yet.');
+            }
+            // **** END: Swiper Autoplay Pause Modification ****
+			
 		}
 
 		// Owl carousel
