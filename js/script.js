@@ -1618,7 +1618,7 @@ function loadConfetti() {
                                     homeSwiper.autoplay.start();
                                 }
                                 autoplayTimeoutId = null;
-                            }, 10000); // Restart after 10 seconds of inactivity
+                            }, 5000); // Restart after 5 seconds of inactivity
 
                         });
                     }); // End of forEach loop
