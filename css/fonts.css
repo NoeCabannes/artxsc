@@ -316,7 +316,75 @@
 }
 
 .mdi-science::before {
-   content:"\E686";
+	content:"\E686";
+}
+
+.mdi-dashboard::before {
+	content:"\E871";
+}
+.mdi-fingerprint::before {
+	content:"\E90D";
+}
+.mdi-arrow-left::before {
+	content:"\F14A";
+}
+.mdi-arrow-right::before {
+	content:"\F14F";
+}
+.mdi-chart-arc::before {
+	content:"\F21C";
+}
+.mdi-check::before {
+	content:"\F222";
+}
+.mdi-chevron-up::before {
+	content:"\F239";
+}
+.mdi-close::before {
+	content:"\F24C";
+}
+.mdi-dots-vertical::before {
+	content:"\F2CE";
+}
+.mdi-facebook::before {
+	content:"\F301";
+}
+.mdi-instagram::before {
+	content:"\F3F1";
+}
+.mdi-library-books::before {
+	content:"\F424";
+}
+.mdi-linkedin::before {
+	content:"\F42D";
+}
+
+.mdi-menu::before {
+	content:"\F44E";
+}
+.mdi-pinterest::before {
+	content:"\F4F6";
+}
+.mdi-plus::before {
+	content:"\F504";
+}
+.mdi-rocket::before {
+	content:"\F552";
+}
+.mdi-send::before {
+	content:"\F579";
+}
+.mdi-youtube-play::before {
+	content:"\F6B0";
+}
+.mdi-forward-media::before {
+	content:"\F6F4";
+}
+.mdi-twitter::before {
+	content:"\0F0554";
+}
+.mdi-window-close::before {
+	content:"\F69A";
 }
 
 
