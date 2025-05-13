@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Redirecting...</title>
+  <script>
+    // Get the full ARK from the URL path
+    const arkPath = window.location.pathname; // e.g., /ark:/12345/foo
+
+    // Option 1: Redirect based on hardcoded mappings (for small collections)
+    const arkMap = {
+      "/ark:/15738/n.cabannesmichel1": "https://news.artxsc.org/author/noe-cabannes-michel/"
+    };
+
+    if (arkMap[arkPath]) {
+      window.location.href = arkMap[arkPath];
+    } else {
+      // Option 2: Or do a dynamic redirect (e.g., based on folder structure)
+      // Example: ark:/12345/foo → /resources/foo.html
+      const id = arkPath.split('/').pop(); // get "foo"
+      window.location.href = `/resources/${id}.html`;
+    }
+  </script>
+</head>
+<body>
+  <p>Redirecting...</p>
+</body>
+</html>
