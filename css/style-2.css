@@ -11852,3 +11852,36 @@ html .modal-body {
 html .close:hover {
 	color: #78c5d6;
 }
+
+.trusted-by {
+  text-align: center;
+  padding: 2rem 1rem;
+  background: #f9f9f9;
+}
+
+.trusted-by h2 {
+  font-size: 2rem;
+  margin-bottom: 2rem;
+  letter-spacing: 1px;
+  color: #222;
+}
+
+.logo-row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2.5rem;
+  flex-wrap: wrap;
+}
+
+.logo-row img {
+  height: 60px;
+  width: auto;
+  object-fit: contain;
+  filter: grayscale(100%);
+  transition: filter 0.3s;
+}
+
+.logo-row img:hover {
+  filter: grayscale(0%);
+}
