@@ -268,69 +268,7 @@
             <p>This is a second paragraph, demonstrating multiline support. Tooltips can contain <b>bold</b>, <i>italic</i>, and even <a href="#">links</a>.</p>
           </span>
         </span>
-        <styles>
-          .mytt-wrapper {
-            display: inline-block;
-            position: relative;
-            vertical-align: middle;
-            margin-left: 0.3em;
-          }
-          
-          .mytt-icon {
-            font-size: 1.1em;
-            color: #357abd;
-            cursor: pointer;
-            user-select: none;
-            transition: color 0.2s;
-            vertical-align: middle;
-            padding: 0 0.1em;
-          }
-          
-          .mytt-icon:hover,
-          .mytt-icon:focus {
-            color: #23527c;
-          }
-          
-          .mytt-content {
-            position: absolute;
-            left: 50%;
-            top: 125%;
-            transform: translateX(-50%) translateY(10px) scale(0.97);
-            min-width: 220px;
-            max-width: 320px;
-            background: #fff;
-            color: #222;
-            border: 1px solid #d0d0d0;
-            border-radius: 6px;
-            box-shadow: 0 4px 16px rgba(0,0,0,0.08), 0 1.5px 6px rgba(0,0,0,0.04);
-            padding: 1em 1.1em;
-            font-size: 0.98em;
-            z-index: 9999;
-            opacity: 0;
-            visibility: hidden;
-            pointer-events: none;
-            transition:
-              opacity 0.22s cubic-bezier(.4,0,.2,1),
-              transform 0.22s cubic-bezier(.4,0,.2,1),
-              visibility 0.22s;
-          }
-          
-          .mytt-wrapper:hover .mytt-content,
-          .mytt-icon:focus + .mytt-content {
-            opacity: 1;
-            visibility: visible;
-            pointer-events: auto;
-            transform: translateX(-50%) translateY(0) scale(1);
-          }
-          
-          .mytt-content p {
-            margin: 0 0 0.7em 0;
-            line-height: 1.6;
-          }
-          .mytt-content p:last-child {
-            margin-bottom: 0;
-          }
-        </styles>
+        
       
         <div class="logo-row">
           <img src="https://artxsc.org/images/project-gutenberg.png" alt="Project Gurenberg est un partenaire de Art × Science International.">
