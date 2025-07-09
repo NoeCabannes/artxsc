@@ -11950,13 +11950,16 @@ html .close:hover {
 
 @media (max-width: 500px) {
   .mytt-content {
-    max-width: calc(100vw - 2em); /* Add horizontal padding */
-    left: 1em !important;
-    right: 1em;
-    transform: translateX(0); /* Cancel centering */
+    max-width: calc(100vw - 2em);
+    left: 50%;
+    transform: translateX(-50%);
+    /* Add horizontal padding protection */
+    inset-inline: auto;
   }
 
-  .mytt-wrapper {
-    display: block; /* Optional: ensures tooltip has space to expand */
+  /* Optional: Clamp to left edge if it gets too close */
+  .mytt-content::before {
+    content: "";
+    display: none; /* Hide arrow on small screens if needed */
   }
 }
