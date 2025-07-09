@@ -11952,11 +11952,11 @@ html .close:hover {
 
 @media (max-width: 500px) {
   .mytt-content {
-    max-width: calc(100vw - 2em);
-    left: 50%;
-    transform: translateX(-50%);
-    /* Add horizontal padding protection */
-    inset-inline: auto;
+    left: 0;
+		right: 0;
+		margin: 0 auto;
+		max-width: 90vw;
+		padding: 1em 1em;
   }
 
   /* Optional: Clamp to left edge if it gets too close */
