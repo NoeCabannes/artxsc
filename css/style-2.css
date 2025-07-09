@@ -11947,3 +11947,16 @@ html .close:hover {
 .mytt-content p:last-child {
   margin-bottom: 0;
 }
+
+@media (max-width: 500px) {
+  .mytt-content {
+    max-width: calc(100vw - 2em); /* Add horizontal padding */
+    left: 1em !important;
+    right: 1em;
+    transform: translateX(0); /* Cancel centering */
+  }
+
+  .mytt-wrapper {
+    display: block; /* Optional: ensures tooltip has space to expand */
+  }
+}
