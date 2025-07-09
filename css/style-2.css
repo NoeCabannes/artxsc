@@ -11952,9 +11952,10 @@ html .close:hover {
 
 @media (max-width: 500px) {
   .mytt-content {
-    left: 50% !important;
-    transform: translateX(-50%) !important;
-    max-width: 90vw !important;
+    left: auto !important;
+    right: 0 !important;
+    transform: none !important;
+    max-width: calc(100vw - 2em) !important;
     min-width: auto !important;
     box-sizing: border-box;
     padding: 1em;
