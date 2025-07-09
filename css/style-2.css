@@ -11891,6 +11891,8 @@ html .close:hover {
   position: relative;
   vertical-align: middle;
   margin-left: 0.3em;
+	overflow: visible;
+	max-width: 100%;
 }
 
 .mytt-icon {
