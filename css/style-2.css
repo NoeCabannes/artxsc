@@ -11924,7 +11924,7 @@ html .close:hover {
   box-shadow: 0 4px 16px rgba(0,0,0,0.08), 0 1.5px 6px rgba(0,0,0,0.04);
   padding: 1em 1.1em;
   font-size: 0.98em;
-  z-index: 9999;
+  z-index: 2;
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
