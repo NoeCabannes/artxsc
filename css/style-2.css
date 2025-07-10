@@ -3724,11 +3724,6 @@ textarea.form-control {
 	height: 100% !important;
 }
 
-.image-hover img {
-	opacity: 0;
-	visibility: hidden;
-	pointer-events: none;
-}
 
 .video {
 	cursor: pointer;
