@@ -10936,7 +10936,7 @@ html:not(.ie-11):not(.ios) .parallax-disabled {
 }
 
 .modal-dialog {
-	width: 95%
+	width: 95%;
 	margin: 0.5rm auto;
 	display: flex;
 	align-items: center;
