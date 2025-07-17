@@ -313,21 +313,21 @@
         </div>
       </section>
       <!-- Modal-->
-      <div class="modal fade" id="modal" tabindex="-1" role="dialog">
+      <div class="modal fade" id="modal-login" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
           <div class="modal-content">
             <div class="modal-body text-center">
-              <h4>Get an offer for<br>a basic plan</h4>
-              <!--RD Mailform-->
-              <form class="rd-mailform" data-form-output="modal-form-output-global" data-form-type="contact" method="post" action="bat/rd-mailform.php">
+              <h3>Log In</h3>
+              <p>Lorem ipsum dolor sit amet, consectetur adipiscing</p>
+              <form class="rd-mailform">
                 <div class="form-group">
                   <input class="form-control" type="text" name="name" placeholder="Your name *" data-constraints="@Required">
                 </div>
                 <div class="form-group">
-                  <input class="form-control" type="email" name="email" placeholder="Your E-mail *" data-constraints="@Email @Required">
+                  <input class="form-control" type="password" name="password" placeholder="Password *" data-constraints="@Required">
                 </div>
-                <div class="offset-xs">
-                  <button class="btn btn-block" type="submit">Send Request</button>
+                <div class="offset-xxs group-40 d-flex flex-wrap flex-xs-nowrap align-items-center">
+                  <button class="btn btn-block" type="submit">Log in</button>
                 </div>
               </form>
             </div>
@@ -335,7 +335,6 @@
           </div>
         </div>
       </div>
-      <div class="form-output snackbar snackbar-secondary" id="modal-form-output-global"></div>
       <!-- Features-->
       <section class="section section-lg bg-transparent" id="features">
         <div class="container">
