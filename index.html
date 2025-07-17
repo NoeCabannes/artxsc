@@ -284,7 +284,7 @@
           </div>
           <div class="owl-carousel owl-carousel-team" data-owl="{&quot;loop&quot;:false,&quot;autoplay&quot;:false,&quot;nav&quot;:true,&quot;responsive&quot;:{&quot;480&quot;:{&quot;items&quot;:2},&quot;992&quot;:{&quot;items&quot;:3},&quot;1200&quot;:{&quot;items&quot;:4}},&quot;navContainer&quot;:&quot;.owl-detached-control&quot;}">
                   <article class="team team-classic">
-                    <figure class="team-classic-figure"><a href="#" role="button" data-bs-toggle="modal" data-bs-target="#modal-login" class="image-hover"><img src="https://artxsc.org/images/FR_L'ODYSÉE_A5_c.png" alt="" width="385" height="441" loading="lazy" data-image-to="https://artxsc.org/images/THE_ODYSSEY_A5_c.png"/></a></figure>
+                    <figure class="team-classic-figure"><a href="?modal=modal-login" role="button" data-modal-target="#modal-login" class="image-hover"><img src="https://artxsc.org/images/FR_L'ODYSÉE_A5_c.png" alt="" width="385" height="441" loading="lazy" data-image-to="https://artxsc.org/images/THE_ODYSSEY_A5_c.png"/></a></figure>
                     <h4 class="team-classic-name"><a href="#" role="button" data-bs-toggle="modal" data-bs-target="#modal-login">L'Odyssée</a></h4>
                     <h5 class="team-classic-position">Homère</h5>
                     <h6>ISBN : 978-2-38719-000-0</h6>
@@ -312,7 +312,7 @@
         </div>
       </section>
       <!-- Modal-->
-      <div class="modal fade" id="modal-login" tabindex="-1" role="dialog">
+      <div class="modal fade" id="modal-login" tabindex="-1" role="dialog" data-modal>
         <div class="modal-dialog" role="document">
           <div class="modal-content">
             <div class="modal-body">
@@ -356,6 +356,69 @@
                 </div>
               </div>
             </div>
+            <!-- JS -->
+            <script>
+            // Wait for DOM ready
+            document.addEventListener('DOMContentLoaded', function () {
+              
+              const modalTriggers = document.querySelectorAll('.modal-open-trigger');
+              modalTriggers.forEach(trigger => {
+                trigger.addEventListener('click', function(e) {
+                  e.preventDefault();
+                  const modalId = this.getAttribute('data-modal-target');
+                  const modalEl = document.querySelector(modalId);
+                  const modal = new bootstrap.Modal(modalEl);
+            
+                  // Open modal
+                  modal.show();
+                  
+                  // Update URL
+                  history.pushState({modalOpen: true}, '', `?modal=${modalEl.id}`);
+            
+                  // Prevent body scrollbar
+                  document.body.style.overflow = 'hidden';
+                  
+                  // Handle modal close events to restore scrollbar
+                  modalEl.addEventListener('hidden.bs.modal', () => {
+                    document.body.style.overflow = '';
+                    history.pushState({}, '', window.location.pathname);
+                  }, { once: true });
+                });
+              });
+            
+              // On load, open modal if URL param present
+              const params = new URLSearchParams(window.location.search);
+              const modalParam = params.get('modal');
+              if (modalParam) {
+                const modalEl = document.getElementById(modalParam);
+                if (modalEl) {
+                  const modal = new bootstrap.Modal(modalEl);
+                  modal.show();
+                  document.body.style.overflow = 'hidden';
+            
+                  modalEl.addEventListener('hidden.bs.modal', () => {
+                    document.body.style.overflow = '';
+                    history.pushState({}, '', window.location.pathname);
+                  }, { once: true });
+                }
+              }
+            
+              // Support browser navigation
+              window.onpopstate = function() {
+                const params = new URLSearchParams(window.location.search);
+                if (!params.has('modal')) {
+                  const openModals = document.querySelectorAll('.modal.show');
+                  openModals.forEach(modalEl => {
+                    const modal = bootstrap.Modal.getInstance(modalEl);
+                    if (modal) {
+                      modal.hide();
+                    }
+                  });
+                  document.body.style.overflow = '';
+                }
+              };
+            });
+            </script>
             
             <!-- CSS -->
             <style>
