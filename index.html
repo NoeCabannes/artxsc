@@ -316,21 +316,161 @@
       <div class="modal fade" id="modal-login" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
           <div class="modal-content">
-            <div class="modal-body text-center">
-              <h3>Log In</h3>
-              <p>Lorem ipsum dolor sit amet, consectetur adipiscing</p>
-              <form class="rd-mailform">
-                <div class="form-group">
-                  <input class="form-control" type="text" name="name" placeholder="Your name *" data-constraints="@Required">
+            <!-- HTML -->
+            <div class="item-container">
+              <div class="item-image">
+                <img src="your-image.jpg" alt="Item Image">
+              </div>
+            
+              <div class="item-details">
+                <div class="breadcrumb">
+                  <a href="#">&larr; All Items</a>
                 </div>
-                <div class="form-group">
-                  <input class="form-control" type="password" name="password" placeholder="Password *" data-constraints="@Required">
+            
+                <h1 class="item-title">Item Title</h1>
+            
+                <div class="item-meta">
+                  <span class="item-category">Category</span>
+                  <span class="item-author">Author</span>
                 </div>
-                <div class="offset-xxs group-40 d-flex flex-wrap flex-xs-nowrap align-items-center">
-                  <button class="btn btn-block" type="submit">Log in</button>
+            
+                <div class="item-price">$18.90</div>
+            
+                <p class="item-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus tincidunt.</p>
+            
+                <ul class="item-info">
+                  <li><strong>ID1:</strong> 00XX</li>
+                  <li><strong>ID2:</strong> 00XX</li>
+                  <li><strong>Release Date:</strong> Jun 27, 2026</li>
+                  <li><strong>ID3:</strong> 00XX</li>
+                  <li><strong>Languages available:</strong> 11</li>
+                </ul>
+            
+                <div class="item-actions">
+                  <button class="wishlist-btn">Wishlist</button>
+                  <button class="preorder-btn">Pre-order</button>
                 </div>
-              </form>
+            
+                <div class="item-set">
+                  <span>Part of the <a href="#">The Games</a> set</span>
+                  <div class="set-thumbnails">
+                    <img src="thumb1.jpg" alt="thumb">
+                    <img src="thumb2.jpg" alt="thumb">
+                    <img src="thumb3.jpg" alt="thumb">
+                    <img src="thumb4.jpg" alt="thumb">
+                  </div>
+                </div>
+              </div>
             </div>
+            
+            <!-- CSS -->
+            <style>
+            .item-container {
+              display: flex;
+              gap: 2rem;
+              max-width: 900px;
+              margin: 0 auto;
+            }
+            
+            .item-image img {
+              max-width: 100%;
+              border-radius: 8px;
+            }
+            
+            .item-details {
+              flex: 1;
+            }
+            
+            .breadcrumb a {
+              text-decoration: none;
+              color: inherit;
+              font-size: 0.9rem;
+              opacity: 0.7;
+            }
+            
+            .item-title {
+              margin-top: 0.5rem;
+              margin-bottom: 0.75rem;
+            }
+            
+            .item-meta {
+              font-size: 0.9rem;
+              opacity: 0.8;
+              margin-bottom: 1rem;
+            }
+            
+            .item-meta span:not(:last-child)::after {
+              content: '•';
+              margin: 0 0.5rem;
+            }
+            
+            .item-price {
+              font-weight: bold;
+              margin-bottom: 1rem;
+            }
+            
+            .item-description {
+              margin-bottom: 1rem;
+            }
+            
+            .item-info {
+              list-style: none;
+              padding: 0;
+              font-size: 0.9rem;
+              opacity: 0.9;
+              margin-bottom: 1.5rem;
+            }
+            
+            .item-info li {
+              margin-bottom: 0.25rem;
+            }
+            
+            .item-actions button {
+              padding: 0.6rem 1rem;
+              margin-right: 0.5rem;
+              cursor: pointer;
+              border-radius: 4px;
+              border: none;
+            }
+            
+            .wishlist-btn {
+              background-color: #f3f3f3;
+            }
+            
+            .preorder-btn {
+              background-color: #333;
+              color: white;
+            }
+            
+            .item-set {
+              margin-top: 2rem;
+              font-size: 0.9rem;
+            }
+            
+            .set-thumbnails {
+              display: flex;
+              gap: 0.5rem;
+              margin-top: 0.5rem;
+            }
+            
+            .set-thumbnails img {
+              width: 50px;
+              height: 50px;
+              object-fit: cover;
+              border-radius: 4px;
+            }
+            
+            /* Mobile responsiveness */
+            @media (max-width: 768px) {
+              .item-container {
+                flex-direction: column;
+              }
+            
+              .item-image {
+                order: -1;
+              }
+            }
+            </style>
             <button class="close" type="button" data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
           </div>
         </div>
