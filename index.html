@@ -374,13 +374,9 @@
                   
                   // Update URL without refreshing
                   history.pushState({modalOpen: true}, '', `?modal=${modalEl.id}`);
-            
-                  // Disable body scrollbar instantly
-                  document.body.style.overflow = 'hidden';
                   
                   // Ensure scrollbar and URL revert on close
                   modalEl.addEventListener('hidden.bs.modal', () => {
-                    document.body.style.overflow = '';
                     history.pushState({}, '', window.location.pathname);
                   }, { once: true });
                 });
@@ -394,10 +390,8 @@
                 if (modalEl) {
                   const modal = new bootstrap.Modal(modalEl);
                   modal.show();
-                  document.body.style.overflow = 'hidden';
             
                   modalEl.addEventListener('hidden.bs.modal', () => {
-                    document.body.style.overflow = '';
                     history.pushState({}, '', window.location.pathname);
                   }, { once: true });
                 }
@@ -411,7 +405,6 @@
                     const modal = bootstrap.Modal.getInstance(modalEl);
                     if (modal) {
                       modal.hide();
-                      document.body.style.overflow = '';
                     }
                   });
                 }
