@@ -10929,20 +10929,22 @@ html:not(.ie-11):not(.ios) .parallax-disabled {
 }
 
 .modal-content {
-	width: calc( 90% - 30px);
+	width: calc( 100% - 30px);
 	margin: 30px 15px;
 	border: none;
 	background: transparent;
 }
 
 .modal-dialog {
-	margin: 0 auto;
+	width: 90%
+	margin: 1rm auto;
 	display: flex;
 	align-items: center;
 	min-height: auto;
 }
 
 .modal-body {
+	max-height: 80vh;
 	padding: 1.875rem;
 	border: 1px solid transparent;
 	border-radius: 20px;
@@ -10951,6 +10953,7 @@ html:not(.ie-11):not(.ios) .parallax-disabled {
 	background-clip: padding-box, border-box;
 	background-origin: padding-box, border-box;
 	box-shadow: 1.875rem 1.5625rem 1.375rem rgba(21, 22, 24, 0.24), -4px -4px 15px rgba(195, 200, 205, 0.04);
+	box-sizing: border-box; /* include padding in sizing */
 }
 
 .close {
