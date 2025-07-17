@@ -10944,6 +10944,7 @@ html:not(.ie-11):not(.ios) .parallax-disabled {
 }
 
 .modal-body {
+	justify-content: center;
 	max-height: 90vh;
 	padding: 1.875rem;
 	border: 1px solid transparent;
@@ -10963,6 +10964,7 @@ html:not(.ie-11):not(.ios) .parallax-disabled {
 	font-size: 1.375rem;
 	line-height: 1;
 	color: #6b6f77;
+	cursor: pointer;
 }
 
 .close:hover {
