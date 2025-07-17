@@ -582,7 +582,7 @@ textarea.form-control {
 
 .modal {
 	--bs-modal-zindex: 16;
-	--bs-modal-width: 545px;
+	--bs-modal-width: 600px;
 	--bs-modal-padding: px-to-rem(50px);
 	--bs-modal-margin: 0.5rem;
 	--bs-modal-color: ;
@@ -659,6 +659,7 @@ textarea.form-control {
 	}
 	.modal-dialog {
 		max-width: var(--bs-modal-width);
+		margin-top: 80px;
 		margin-right: auto;
 		margin-left: auto;
 	}
