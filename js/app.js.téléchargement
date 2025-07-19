@@ -1,0 +1,339 @@
+// Progressive Modal System
+document.addEventListener('DOMContentLoaded', function() {
+  // Modal elements
+  const modal = document.getElementById('modal');
+  const modalBackdrop = document.getElementById('modal-backdrop');
+  const modalContent = document.getElementById('modal-content');
+  const scrollContainer = document.getElementById('scroll-container');
+  const scrollSpacer = document.getElementById('scroll-spacer');
+  const scrollIndicator = document.getElementById('scroll-indicator');
+  
+  // Buttons
+  const triggerBlue = document.getElementById('trigger-blue');
+  const triggerRed = document.getElementById('trigger-red');
+  const backBtn = document.getElementById('back-btn');
+  const closeBtn = document.getElementById('close-btn');
+  
+  // Modal state
+  let isModalOpen = false;
+  let isExpanded = false;
+  let isMobile = window.innerWidth <= 768;
+  
+  // Modal data
+  const modalData = {
+    title: "The Digital Revolution",
+    author: "Sarah Johnson",
+    category: "Technology", 
+    description: "A comprehensive guide to understanding how digital transformation is reshaping our world. Explore the latest trends and innovations that are changing how we work, communicate, and live.",
+    id01: "DR001",
+    id02: "TG245",
+    date: "15-07-2025",
+    languages: "English, French, Spanish",
+    newInfo: "Latest insights on AI integration and future technology trends",
+    collection: "Digital Age Collection",
+    similarItems: [
+      {"color": "#FF00FF", "title": "AI Innovations"},
+      {"color": "#FF6347", "title": "Future Tech"},
+      {"color": "#ADFF2F", "title": "Digital Trends"}
+    ]
+  };
+  
+  // Initialize
+  init();
+  
+  function init() {
+    // Populate modal content
+    populateModalContent();
+    
+    // Set up event listeners
+    setupEventListeners();
+    
+    // Set up scroll spacer
+    if (scrollSpacer) {
+      scrollSpacer.style.height = window.innerHeight + 'px';
+    }
+    
+    console.log('Modal system initialized');
+  }
+  
+  function populateModalContent() {
+    // Update text content
+    updateElement('item-title', modalData.title);
+    updateElement('item-meta', `${modalData.author} • ${modalData.category}`);
+    updateElement('item-description', modalData.description);
+    updateElement('meta-id01', modalData.id01);
+    updateElement('meta-id02', modalData.id02);
+    updateElement('meta-date', modalData.date);
+    updateElement('meta-languages', modalData.languages);
+    updateElement('new-info-text', modalData.newInfo);
+    updateElement('collection-link', modalData.collection);
+    
+    // Update similar items
+    const similarItemsGrid = document.getElementById('similar-items-grid');
+    if (similarItemsGrid) {
+      similarItemsGrid.innerHTML = '';
+      modalData.similarItems.forEach(item => {
+        const itemElement = document.createElement('div');
+        itemElement.className = 'similar-item';
+        itemElement.style.backgroundColor = item.color;
+        itemElement.textContent = item.title;
+        similarItemsGrid.appendChild(itemElement);
+      });
+    }
+  }
+  
+  function updateElement(id, text) {
+    const element = document.getElementById(id);
+    if (element) {
+      element.textContent = text;
+    }
+  }
+  
+  function setupEventListeners() {
+    // Trigger buttons
+    if (triggerBlue) {
+      triggerBlue.addEventListener('click', () => openModal('blue'));
+    }
+    
+    if (triggerRed) {
+      triggerRed.addEventListener('click', () => openModal('red'));
+    }
+    
+    // Close buttons
+    if (backBtn) {
+      backBtn.addEventListener('click', closeModal);
+    }
+    
+    if (closeBtn) {
+      closeBtn.addEventListener('click', closeModal);
+    }
+    
+    // Backdrop click - properly implemented
+    if (modalBackdrop) {
+      modalBackdrop.addEventListener('click', function(event) {
+        // Only close if clicking directly on backdrop, not on modal content
+        if (event.target === modalBackdrop) {
+          closeModal();
+        }
+      });
+    }
+    
+    // Prevent modal content clicks from bubbling to backdrop
+    if (modalContent) {
+      modalContent.addEventListener('click', function(event) {
+        event.stopPropagation();
+      });
+    }
+    
+    // Scroll handling
+    if (scrollContainer) {
+      scrollContainer.addEventListener('scroll', handleScroll);
+    }
+    
+    // Keyboard handling
+    document.addEventListener('keydown', handleKeydown);
+    
+    // Resize handling
+    window.addEventListener('resize', handleResize);
+  }
+  
+  function openModal(theme) {
+    if (isModalOpen) return;
+    
+    console.log('Opening modal with theme:', theme);
+    
+    isModalOpen = true;
+    isExpanded = false;
+    
+    // Reset scroll position
+    if (scrollContainer) {
+      scrollContainer.scrollTop = 0;
+    }
+    
+    // Apply theme styling
+    applyTheme(theme);
+    
+    // Show modal
+    if (modal) {
+      modal.classList.add('active');
+    }
+    
+    if (modalBackdrop) {
+      modalBackdrop.classList.add('active');
+    }
+    
+    // Lock body scroll
+    document.body.classList.add('modal-open');
+    
+    // Show scroll indicator on desktop
+    if (!isMobile && scrollIndicator) {
+      scrollIndicator.classList.remove('hidden');
+    }
+    
+    // Focus management
+    setTimeout(() => {
+      if (backBtn) {
+        backBtn.focus();
+      }
+    }, 100);
+  }
+  
+  function closeModal() {
+    if (!isModalOpen) return;
+    
+    console.log('Closing modal');
+    
+    isModalOpen = false;
+    isExpanded = false;
+    
+    // Hide modal
+    if (modal) {
+      modal.classList.remove('active');
+    }
+    
+    if (modalBackdrop) {
+      modalBackdrop.classList.remove('active');
+    }
+    
+    // Reset modal content state
+    if (modalContent) {
+      modalContent.classList.remove('expanded');
+      modalContent.style.width = '';
+      modalContent.style.height = '';
+      modalContent.style.borderRadius = '';
+    }
+    
+    // Reset backdrop opacity
+    if (modalBackdrop) {
+      modalBackdrop.style.opacity = '';
+    }
+    
+    // Unlock body scroll
+    document.body.classList.remove('modal-open');
+    
+    // Reset scroll indicator
+    if (scrollIndicator) {
+      scrollIndicator.classList.remove('hidden');
+    }
+    
+    // Reset scroll position
+    if (scrollContainer) {
+      scrollContainer.scrollTop = 0;
+    }
+  }
+  
+  function applyTheme(theme) {
+    // Apply different styling based on theme
+    const highlightSection = document.querySelector('.highlight-section');
+    const scrollIndicatorEl = document.getElementById('scroll-indicator');
+    
+    if (theme === 'red') {
+      if (highlightSection) {
+        highlightSection.style.backgroundColor = 'var(--color-red-400)';
+      }
+      if (scrollIndicatorEl) {
+        scrollIndicatorEl.style.backgroundColor = 'var(--color-red-400)';
+      }
+    } else {
+      if (highlightSection) {
+        highlightSection.style.backgroundColor = 'var(--color-primary)';
+      }
+      if (scrollIndicatorEl) {
+        scrollIndicatorEl.style.backgroundColor = 'var(--color-primary)';
+      }
+    }
+  }
+  
+  function handleScroll() {
+    if (!isModalOpen || isMobile) return;
+    
+    const scrollTop = scrollContainer.scrollTop;
+    const scrollHeight = scrollContainer.scrollHeight;
+    const clientHeight = scrollContainer.clientHeight;
+    const maxScroll = scrollHeight - clientHeight;
+    
+    if (maxScroll <= 0) return;
+    
+    const scrollProgress = Math.min(scrollTop / maxScroll, 1);
+    
+    // Hide scroll indicator after initial scroll
+    if (scrollProgress > 0.1 && scrollIndicator) {
+      scrollIndicator.classList.add('hidden');
+    }
+    
+    // Progressive expansion
+    if (!isExpanded && scrollProgress > 0) {
+      const startSize = 60;
+      const endSize = 100;
+      const currentSize = startSize + (endSize - startSize) * scrollProgress;
+      
+      if (modalContent) {
+        modalContent.style.width = `${currentSize}vw`;
+        modalContent.style.height = `${currentSize}vh`;
+        
+        // Reduce border radius as we expand
+        const borderRadius = Math.max(0, 12 * (1 - scrollProgress));
+        modalContent.style.borderRadius = `${borderRadius}px`;
+      }
+      
+      // Fade backdrop as we expand
+      if (modalBackdrop) {
+        const backdropOpacity = Math.max(0.1, 0.5 * (1 - scrollProgress * 0.8));
+        modalBackdrop.style.opacity = backdropOpacity;
+      }
+    }
+    
+    // Full expansion at 90% scroll
+    if (scrollProgress >= 0.9 && !isExpanded) {
+      expandToFullscreen();
+    }
+  }
+  
+  function expandToFullscreen() {
+    if (isExpanded) return;
+    
+    console.log('Expanding to fullscreen');
+    isExpanded = true;
+    
+    if (modalContent) {
+      modalContent.classList.add('expanded');
+    }
+    
+    if (modalBackdrop) {
+      modalBackdrop.style.opacity = '0';
+    }
+    
+    if (scrollIndicator) {
+      scrollIndicator.classList.add('hidden');
+    }
+    
+    // FIX: Reset the scroll position to the top after the modal expands.
+    // Using a minimal setTimeout ensures the browser has started the CSS transition,
+    // preventing a jarring jump and making the reset smooth.
+    setTimeout(() => {
+      if (scrollContainer) {
+        scrollContainer.scrollTop = 0;
+        // DEBUG: Confirm the scroll position has been reset
+        console.log('Scroll position has been reset to top.');
+      }
+    }, 10);
+  }
+  
+  function handleKeydown(event) {
+    if (!isModalOpen) return;
+    
+    if (event.key === 'Escape') {
+      closeModal();
+    }
+  }
+  
+  function handleResize() {
+    isMobile = window.innerWidth <= 768;
+    
+    // Update scroll spacer height
+    if (scrollSpacer) {
+      scrollSpacer.style.height = window.innerHeight + 'px';
+    }
+  }
+  
+}); // Close the DOMContentLoaded event listener
